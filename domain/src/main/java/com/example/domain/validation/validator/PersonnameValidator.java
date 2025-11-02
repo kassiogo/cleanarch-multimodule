@@ -5,13 +5,13 @@ public class PersonnameValidator extends AbstractValidator {
 
     public PersonnameValidator(Object fieldValue) {
         this.fieldValue = fieldValue;
-        this.returnMessage = "Personname is invalid.";
+        this.returnMessage = "Name must contain only letters and spaces.";
     }
 
     @Override
     public String validate() {
         String username = (String) fieldValue;
-        if (username.contains("@"))
+        if (!username.matches("^[a-zA-Z\\s'-.]+$"))
             return returnMessage;
         return null;
     }

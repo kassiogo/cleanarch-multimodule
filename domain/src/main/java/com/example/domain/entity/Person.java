@@ -14,9 +14,10 @@ public class Person extends AbstractEntity {
     private Boolean active;
     private String email;
 
-    public Person(Long id, String name, Boolean active) {
+    public Person(Long id, String name, String email, Boolean active) {
         this.id = id;
         this.name = name;
+        this.email = email;
         this.active = active;
 
         String error = this.validate();
@@ -24,8 +25,9 @@ public class Person extends AbstractEntity {
             throw new DomainException(error);
     }
 
-    public Person(String name) {
+    public Person(String name, String email) {
         this.name = name;
+        this.email = email;
 
         String error = this.validate();
         if (error != null)

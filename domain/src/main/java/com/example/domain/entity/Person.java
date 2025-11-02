@@ -1,23 +1,35 @@
 package com.example.domain.entity;
 
-public class Person {
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.domain.exception.DomainException;
+import com.example.domain.validation.ValidationBuilder;
+import com.example.domain.validation.validator.contract.Validator;
+
+public class Person extends AbstractEntity {
 
     private Long id;
     private String name;
     private Boolean active;
-
-    public Person() {
-    }
-
-    public Person(String name, Boolean active) {
-        this.name = name;
-        this.active = active;
-    }
+    private String email;
 
     public Person(Long id, String name, Boolean active) {
         this.id = id;
         this.name = name;
         this.active = active;
+
+        String error = this.validate();
+        if (error != null)
+            throw new DomainException(error);
+    }
+
+    public Person(String name) {
+        this.name = name;
+
+        String error = this.validate();
+        if (error != null)
+            throw new DomainException(error);
     }
 
     public Long getId() {
@@ -34,6 +46,9 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
+        String error = this.validate();
+        if (error != null)
+            throw new DomainException(error);
     }
 
     public Boolean getActive() {
@@ -42,6 +57,17 @@ public class Person {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+        String error = this.validate();
+        if (error != null)
+            throw new DomainException(error);
     }
 
     @Override
@@ -67,5 +93,18 @@ public class Person {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    @Override
+    protected List<Validator> buildValidators() {
+        List<Validator> validators = new ArrayList<>();
+        validators.addAll(ValidationBuilder.of("Name", this.name)
+                .required()
+                .personname()
+                .build());
+        validators.addAll(ValidationBuilder.of("E-mail", this.email)
+                .email()
+                .build());
+        return validators;
     }
 }

@@ -10,7 +10,8 @@ public class CreatePersonInteractorImpl implements CreatePersonInteractor {
     private final CreatePersonGateway createPersonGateway;
     private final FindByNameInteractor findByNameInteractor;
 
-    public CreatePersonInteractorImpl(CreatePersonGateway createPersonGateway,
+    public CreatePersonInteractorImpl(
+            CreatePersonGateway createPersonGateway,
             FindByNameInteractor findByNameInteractor) {
         this.createPersonGateway = createPersonGateway;
         this.findByNameInteractor = findByNameInteractor;

@@ -18,8 +18,8 @@ public class CreatePersonInteractorImpl implements CreatePersonInteractor {
     }
 
     @Override
-    public Person createPerson(Person person) {
-        findByNameInteractor.find(person.getName())
+    public Person execute(Person person) {
+        findByNameInteractor.execute(person.getName())
                 .ifPresent(p -> {
                     throw new ConflictException("Person already exists");
                 });

@@ -10,6 +10,7 @@ import com.example.application.gateway.person.CreatePersonGateway;
 import com.example.infrastructure.entrypoint.dto.person.CreatePersonRequest;
 import com.example.infrastructure.entrypoint.dto.person.PersonResponse;
 import com.example.infrastructure.mappers.PersonMapper;
+import com.example.usecase.person.CreatePersonInteractor;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,14 +19,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CreatePersonController {
 
-    private final CreatePersonGateway createPersonGateway;
-    private final PersonMapper personMapper;
+    private final CreatePersonInteractor usecase;
+    private final PersonMapper mapper;
 
     @PostMapping
     public ResponseEntity<PersonResponse> createPerson(@RequestBody CreatePersonRequest personRequest) {
-        var person = personMapper.toDomain(personRequest);
-        var createdPerson = createPersonGateway.createPerson(person);
-        return ResponseEntity.ok(personMapper.toResponse(createdPerson));
+        var createdPerson = usecase.execute(mapper.toDomain(personRequest));
+        return ResponseEntity.ok(mapper.toResponse(createdPerson));
     }
 
 }

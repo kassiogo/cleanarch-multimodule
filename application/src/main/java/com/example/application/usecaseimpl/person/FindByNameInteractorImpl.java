@@ -15,7 +15,7 @@ public class FindByNameInteractorImpl implements FindByNameInteractor {
     }
 
     @Override
-    public Optional<Person> find(String name) {
+    public Optional<Person> execute(String name) {
         return findByNameGateway.find(name);
     }
 

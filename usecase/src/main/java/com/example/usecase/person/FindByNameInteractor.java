@@ -5,5 +5,5 @@ import java.util.Optional;
 import com.example.domain.entity.Person;
 
 public interface FindByNameInteractor {
-    Optional<Person> find(String name);
+    Optional<Person> execute(String name);
 }

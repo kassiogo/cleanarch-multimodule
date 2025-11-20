@@ -27,7 +27,7 @@ class FindByNameInteractorImplTest {
 
         when(findByNameGateway.find(person.getName())).thenReturn(Optional.of(person));
 
-        Optional<Person> result = findByNameInteractor.find(person.getName());
+        Optional<Person> result = findByNameInteractor.execute(person.getName());
 
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(person);
@@ -43,7 +43,7 @@ class FindByNameInteractorImplTest {
 
         when(findByNameGateway.find("any person name")).thenReturn(Optional.empty());
 
-        Optional<Person> result = findByNameInteractor.find("any person name");
+        Optional<Person> result = findByNameInteractor.execute("any person name");
 
         assertThat(result).isEmpty();
         verify(findByNameGateway, times(1)).find("any person name");

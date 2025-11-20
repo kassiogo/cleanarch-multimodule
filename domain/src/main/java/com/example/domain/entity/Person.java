@@ -14,6 +14,9 @@ public class Person extends AbstractEntity {
     private Boolean active;
     private String email;
 
+    public Person() {
+    }
+
     public Person(Long id, String name, String email, Boolean active) {
         this.id = id;
         this.name = name;
